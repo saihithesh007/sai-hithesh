@@ -1,0 +1,29 @@
+import random
+
+def generate_traffic_data():
+    # Simulate traffic data
+    traffic_conditions = ["light traffic", "moderate traffic", "heavy traffic", "accident", "road work"]
+    condition = random.choice(traffic_conditions)
+    travel_time = round(random.uniform(5, 60), 2)  # Random travel time in minutes
+    incidents = ["None", "Accident", "Road Work", "Heavy Traffic"]
+    incident = random.choice(incidents)
+    
+    return condition, travel_time, incident
+
+def display_traffic_data(start, end, condition, travel_time, incident):
+    print(f"Traffic data from {start} to {end}:")
+    print(f"Traffic condition: {condition}")
+    print(f"Estimated travel time: {travel_time} minutes")
+    print(f"Incidents: {incident}")
+
+def main():
+    # Get location input from user
+    start = input("Enter the starting point: ")
+    end = input("Enter the destination: ")
+    
+    # Generate and display the traffic data
+    condition, travel_time, incident = generate_traffic_data()
+    display_traffic_data(start, end, condition, travel_time, incident)
+
+if __name__ == "__main__":
+    main()
