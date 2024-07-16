@@ -1,0 +1,38 @@
+import requests
+
+API_KEY = "c27f395d3cmshb75a2d9baea6580p1e7005jsn43de63d863fd"
+
+def get_covid_stats(region):
+    base_url = "https://disease.sh/v3/covid-19"
+    complete_url = f"{base_url}/all" if region.lower() == 'world' else f"{base_url}/countries/{region}"
+    
+    headers = {
+        'Authorization': f'Bearer {API_KEY}'
+    }
+    
+    response = requests.get(complete_url, headers=headers)
+    
+    if response.status_code == 200:
+        covid_data = response.json()
+        return covid_data
+    else:
+        print("Error: Unable to fetch data. Please check the region and try again.")
+        return None
+
+def display_covid_stats(region, covid_data):
+    if covid_data:
+        print(f"COVID-19 Statistics for {region.capitalize()}:")
+        print(f"Total Cases: {covid_data.get('cases', 'N/A')}")
+        print(f"Total Recoveries: {covid_data.get('recovered', 'N/A')}")
+        print(f"Total Deaths: {covid_data.get('deaths', 'N/A')}")
+    else:
+        print("No data available to display.")
+
+def main():
+    region = input("Enter the region (country or 'world' for global statistics): ")
+    
+    covid_data = get_covid_stats(region)
+    display_covid_stats(region, covid_data)
+
+if __name__ == "__main__":
+    main()
